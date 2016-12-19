@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 text-center"><h1>All Products</h1></div>
+    <div class="col-sm-2 text-right"><%= link_to "New Product",  new_product_path, class: 'btn btn-sm btn-success' %></div>
+  </div>
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="row" style="border: 1px solid">
+        <div class="col-md-3">
+          <%= image_tag product.primary_image[:thumbnail_url]%>
+        </div>
+        <div class="col-md-4">
+          <%= product.name %>
+        </div>
+        <div class="col-md-2">
+          <%= product.price %>
+        </div>
+        <div class="col-md-2">
+          <%= link_to "More Details", product_path(product.id),class: 'btn btn-primary' %>
+        </div>
+        <div class="col-md-1">
+          <%= link_to "Delete", product_path(product.id), method: :delete, class: 'btn btn-sm  btn-danger', data: { confirm: 'Are you sure?'} %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

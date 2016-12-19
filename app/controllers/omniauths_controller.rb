@@ -17,20 +17,14 @@ class OmniauthsController < ApplicationController
       logger.info "[install] Updating token for store '#{store_hash}' with scope '#{scope}'"
       store.update(access_token: token, scope: scope)
       connection = Bigcommerce::Connection.build(Bigcommerce::Config.new(store_hash: store.store_hash, client_id: ENV['BC_CLIENT_ID'], access_token: store.access_token))
-      # webhook1 = Bigcommerce::Webhook.create( scope: 'store/order/created',  destination: "#{app_url}/hooks/order_created",  connection: connection  )
-      # webhook2 = Bigcommerce::Webhook.create( scope: 'store/shipment/created',  destination: "#{app_url}/hooks/shipment_created",  connection: connection  )
 
     else
       logger.info "[install] Installing app for store '#{store_hash}' with admin '#{email}'"
       store = Store.create(store_hash: store_hash, access_token: token, scope: scope, email: email, username: name)
       if store.present?
         connection = Bigcommerce::Connection.build(Bigcommerce::Config.new(store_hash: store.store_hash, client_id: ENV['BC_CLIENT_ID'], access_token: store.access_token))
-        # webhook1 = Bigcommerce::Webhook.create( scope: 'store/order/created',  destination: "#{app_url}/hooks/order_created",  connection: connection  )
-        # webhook2 = Bigcommerce::Webhook.create( scope: 'store/shipment/created',  destination: "#{app_url}/hooks/shipment_created",  connection: connection  )
       end
       session[:store_id] = store.id
-      logo = Bigcommerce::StoreInfo.info(connection: connection)[:logo]
-      session[:store_logo] = logo.present? ? logo[:url] : 'assets/default_logo.png'
     end
     render 'home/index', status: 200
   end
@@ -56,8 +50,6 @@ class OmniauthsController < ApplicationController
     return render_error("[load] Store not found!") unless @store
     logger.info "[load] Loading app for user '#{email}' on store '#{store_hash}'"
     session[:store_id] = @store.id
-    logo = Bigcommerce::StoreInfo.info(connection: connection)[:logo]
-    session[:store_logo] = logo.present? ? logo[:url] : 'assets/default_logo.png'
     render 'home/index', status: 200
   end
 

@@ -1,0 +1,30 @@
+<h1><%= @product.name%></h1>
+<br>
+Description: <%= @product.description.html_safe%>
+<%= image_tag @product.primary_image[:thumbnail_url]%>
+<table>
+  <tr>
+    <td>type</td>
+    <td><%= @product.type %></td>
+  </tr>
+  <tr>
+    <td>sku</td>
+    <td><%= @product.sku%></td>
+  </tr>
+  <tr>
+    <td>Price</td>
+    <td><%= @product.price%></td>
+  </tr>
+  <tr>
+    <td>condition </td>
+    <td>@product.condition</td>
+  </tr>
+  <tr>
+    <td>weight</td>
+    <td><%= @product.weight %></td>
+  </tr>
+  <tr>
+    <td>height</td>
+    <td><%= @product.height %></td>
+  </tr>
+</table>
