@@ -4,4 +4,10 @@ Rails.application.routes.draw do
   get '/load' => 'omniauths#load'
   get '/uninstall' => 'omniauths#uninstall'
   resources :products
+  resources :hooks do
+    collection do
+      post 'product_created'
+    end
+  end
+
 end
