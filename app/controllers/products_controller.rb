@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
       )
       redirect_to products_path
     rescue e
-      binding.pry
+      Rails.logger.error(e)
     end
 
   end
