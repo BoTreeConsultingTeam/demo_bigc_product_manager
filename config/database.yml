@@ -1,0 +1,23 @@
+postgre_common_config: &postgre_common_config
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres # if using default PostgreSQL user then the value should be: postgres
+  password: root
+  host: localhost # If the DB is setup on local machine then use: localhost
+
+development:
+  # database: bliss_development_original
+  database: demo_product_manager
+  <<: *postgre_common_config
+
+# Warning: The database defined as "skill_hunt_test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  database: demo_product_manager
+  <<: *postgre_common_config
+
+production:
+  database: demo_product_manager
+  <<: *postgre_common_config
